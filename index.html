@@ -127,5 +127,34 @@
         <p>© 2024 Stop à la Discrimination | Ensemble pour une société inclusive</p>
     </footer>
 
+    <script>
+        document.getElementById('mediaInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('preview');
+            
+            if (file) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.innerHTML = '';
+                    
+                    if (file.type.startsWith('video/')) {
+                        const video = document.createElement('video');
+                        video.classList.add('media-preview');
+                        video.controls = true;
+                        video.src = e.target.result;
+                        preview.appendChild(video);
+                    } else if (file.type === 'image/gif') {
+                        const img = document.createElement('img');
+                        img.classList.add('media-preview');
+                        img.src = e.target.result;
+                        preview.appendChild(img);
+                    }
+                }
+                
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 </body>
 </html>
